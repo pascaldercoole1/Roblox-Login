@@ -5,10 +5,17 @@ import time
 import re
 import datetime
 
+# Function to clear the terminal window
+def clear():
+    os.system('cls' if os.name == 'nt' else 'clear')
+
 while True:
+    clear()
     # Den Roblox-Prozess suchen
     prozesse = [p for p in psutil.process_iter(['name']) if p.info['name'] == "RobloxPlayerBeta.exe"]
     if len(prozesse) > 0:
+        clear()
+        print("--------------------------------------------------------------")
         #print("RobloxPlayerBeta.exe got found! PID:", prozesse[0].pid)
         #print("Hello!")
         roblox_prozess = prozesse[0]
@@ -101,9 +108,12 @@ while True:
         else:
             print("Roblox-Version nicht gefunden.")
 
-        
+        print("--------------------------------------------------------------")
         psutil.wait_procs(prozesse, timeout=None)
         print("RobloxPlayerBeta.exe got Closed!")
+        print("--------------------------------------------------------------")
+        time.sleep(3)
+        clear()
     else:
         print("RobloxPlayerBeta.exe was not found!")
     time.sleep(1)
