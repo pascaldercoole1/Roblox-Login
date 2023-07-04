@@ -45,10 +45,10 @@ while True:
         #for dll_file in dll_files:
             #print(dll_file)
 
-        #print("Status:", status)
+        print("Status:", status)
         #print("CPU-utilization:", cpu_percent, "%")
         #print("StorageInfo:", memory_info)
-        #print("parentprozess PID:", ppid)
+        print("parentprozess PID:", ppid)
         #print("acceleration time:", time.ctime(create_time))
         #print("CmdLine Aguments:", cmdline)
 
