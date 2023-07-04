@@ -164,7 +164,7 @@ while True:
 
     clear()  # Clear the terminal window
 
-    print("Version: 0.1")
+    print("Version: 0.3")
 
     print("Warning:")
     print("- Never Click Logout or your Cookie will be unusable")
