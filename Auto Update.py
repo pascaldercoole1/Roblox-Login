@@ -1,34 +1,37 @@
 import os
-import requests
 import time
+import requests
 
-# Lokaler Pfad zum Speichern der Datei
-lokaler_pfad = os.path.expanduser("~/Roblox-Login")
+def download_file(url, local_path):
+    response = requests.get(url)
+    with open(local_path, "wb") as file:
+        file.write(response.content)
 
-# GitHub-Repository-URL
-repository_url = "https://github.com/pascaldercoole1/Roblox-Login/raw/main/Roblox%20Cookie%20Login.py"
+def download_repository_files(repository_url, local_path):
+    response = requests.get(repository_url)
+    if response.status_code == 200:
+        json_response = response.json()
+        for item in json_response:
+            if item["type"] == "file":
+                file_url = item["download_url"]
+                file_name = item["name"]
+                local_file_path = os.path.join(local_path, file_name)
+                print("Downloading:", file_name)
+                download_file(file_url, local_file_path)
+    else:
+        print("Cant download the latest Version!")
 
-print("Searching for Updates...")
+repository_url = "https://api.github.com/repos/pascaldercoole1/Roblox-Login/contents/Main"
+local_path = os.path.expanduser("~/Roblox-Login")
 
-time.sleep(1)
+print("Lade die Dateien herunter...")
+os.makedirs(local_path, exist_ok=True)
+download_repository_files(repository_url, local_path)
 
-print("Downloading latest Version...")
-
-# Datei herunterladen
-response = requests.get(repository_url)
-datei_name = os.path.join(lokaler_pfad, "Roblox Cookie Login.py")
-
-# Erstelle das Verzeichnis, wenn es nicht existiert
-os.makedirs(lokaler_pfad, exist_ok=True)
-
-# Datei speichern
-with open(datei_name, "wb") as f:
-    f.write(response.content)
-
-# Die heruntergeladene Datei öffnen
+print("All Files got downloaded.")
 
 print("Staring latest Version...")
 
-os.startfile(datei_name)
+os.startfile("Main.py")
 
 time.sleep(3)
