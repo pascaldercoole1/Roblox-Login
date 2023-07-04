@@ -39,5 +39,3 @@ lokaler_pfad = os.path.expanduser("~/Roblox-Login")
 datei_name = os.path.join(lokaler_pfad, "Main.py")
 
 os.startfile(datei_name)
-
-time.sleep(1)
