@@ -36,7 +36,7 @@ time.sleep(2)
 
 clear()
 
-# Path to the cookie file in the user's home directory
+
 COOKIE_FILE_PATH = os.path.join(str(Path.home()), 'cookies.json')
 
 def start_cookie(cookie_value, cookie_name, browser=None):
@@ -71,25 +71,20 @@ def start_cookie(cookie_value, cookie_name, browser=None):
     return browser
 
 def save_Browser_Cookie(browser=None):
-    # Path to the Chrome Webdriver
     webdriver_path = '/path/to/chromedriver'
 
-    # Open the browser if not already opened
     if browser is None:
         options = Options()
-        options.add_argument("--start-maximized")  # Maximize the browser window
+        options.add_argument("--start-maximized")  
         browser = webdriver.Chrome(options=options)
 
-    # Go to the Roblox website
     browser.get('https://www.roblox.com/Login')
 
-    # Wait until the website redirects to "https://www.roblox.com/Home"
-    WebDriverWait(browser, 60).until(EC.url_to_be("https://www.roblox.com/home"))
-
-    # Get the cookie value
+    WebDriverWait(browser, float('inf')).until(
+        lambda driver: "web.roblox.com/home" in driver.current_url or "www.roblox.com/home?nu=true" in driver.current_url
+    )
     cookie_value = browser.get_cookie('.ROBLOSECURITY')['value']
 
-    # Element finden
     element = browser.find_element(By.XPATH, '//*[@id="right-navigation-header"]/div[2]/ul/div/a/span[2]')
 
 
