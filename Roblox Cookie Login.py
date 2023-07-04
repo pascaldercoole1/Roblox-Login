@@ -43,9 +43,6 @@ def start_cookie(cookie_value, cookie_name, browser=None):
         options = Options()
         options.add_argument("--start-maximized")  # Maximize the browser window
         browser = webdriver.Chrome(options=options)
-    else:
-        # Refresh the start page
-        browser.refresh()
 
     # Go to the Roblox website
     browser.get('https://www.roblox.com/Home')
@@ -118,13 +115,19 @@ def update_all_cookies():
         for cookie in loaded_cookies:
             browser = start_cookie(cookie['value'], cookie['name'], browser)
         print("All cookies have been updated.")
-
+        return [browser]
 
 # Main program
-browser = None
+browsers = []
 
 while True:
     clear()  # Clear the terminal window
+
+    print("Warning:")
+    print("- Never Click Logout or your Cookie will be unusable")
+    print("- Dont Close the Python App while having a Browser open (it will Crash)")
+
+    print("----------------------------------------------------------------------------------------------")
 
     print("Cookie Management:")
     print("1. Start a Cookie")
@@ -151,7 +154,8 @@ while True:
             cookie_index = int(cookie_choice) - 1
 
             if 0 <= cookie_index < len(loaded_cookies):
-                browser = start_cookie(loaded_cookies[cookie_index]['value'], loaded_cookies[cookie_index]['name'], browser)
+                browser = start_cookie(loaded_cookies[cookie_index]['value'], loaded_cookies[cookie_index]['name'])
+                browsers.append(browser)
             else:
                 print("Invalid selection. Please try again.")
     elif choice == '2':
@@ -182,15 +186,14 @@ while True:
         input("Press Enter to continue...")
     elif choice == '6':
         clear()  # Clear the terminal window
-        update_all_cookies()
+        browsers = update_all_cookies()
         input("Press Enter to continue...")
     elif choice == '7':
         clear()  # Clear the terminal window
-        if browser is not None:
-            print("Good bye!")
-            time.sleep(0.5)
-            # Close the menu but keep the browser open
-            browser.get('https://www.roblox.com/Home')
+        for browser in browsers:
+            browser.quit()
+        print("Goodbye!")
+        time.sleep(1)
         break
     else:
         clear()  # Clear the terminal window
@@ -203,4 +206,3 @@ while True:
         print("Invalid selection. Please try again. (1)")
         time.sleep(1)
         clear()  # Clear the terminal window
-
