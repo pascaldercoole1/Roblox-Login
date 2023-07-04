@@ -80,7 +80,7 @@ def save_Browser_Cookie(browser=None):
         browser = webdriver.Chrome(options=options)
 
     # Go to the Roblox website
-    browser.get('https://www.roblox.com')
+    browser.get('https://www.roblox.com/Login')
 
     # Wait until the website redirects to "https://www.roblox.com/Home"
     WebDriverWait(browser, 60).until(EC.url_to_be("https://www.roblox.com/home"))
@@ -164,7 +164,7 @@ browsers = []
 while True:
     clear()  # Clear the terminal window
 
-    print("Version: 0.2")
+    print("Version: 0.1")
 
     print("Warning:")
     print("- Never Click Logout or your Cookie will be unusable")
@@ -182,7 +182,7 @@ while True:
     print("7. Update All Cookies")
     print("8. Quit Program")
 
-    choice = input("Select an option (1-7): ")
+    choice = input("Select an option (1-8): ")
 
     if choice == '1':
         clear()  # Clear the terminal window
