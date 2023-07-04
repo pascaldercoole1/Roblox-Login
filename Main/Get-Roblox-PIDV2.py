@@ -36,7 +36,14 @@ while True:
         else:
             print("RobloxPlayerBeta.exe got found! PID:", pid)
 
-        
+
+
+        memory_maps = roblox_prozess.memory_maps()
+
+        dll_files = [m.path for m in memory_maps if m.path.endswith('.dll')]
+
+        #for dll_file in dll_files:
+            #print(dll_file)
 
         #print("Status:", status)
         #print("CPU-utilization:", cpu_percent, "%")
