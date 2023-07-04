@@ -37,13 +37,9 @@ while True:
             print("RobloxPlayerBeta.exe got found! PID:", pid)
 
 
+        file_path = roblox_prozess.exe()
 
-        memory_maps = roblox_prozess.memory_maps()
-
-        dll_files = [m.path for m in memory_maps if m.path.endswith('.dll')]
-
-        #for dll_file in dll_files:
-            #print(dll_file)
+        print("file_path:",file_path)
 
         print("Status:", status)
         #print("CPU-utilization:", cpu_percent, "%")
@@ -51,6 +47,17 @@ while True:
         print("parentprozess PID:", ppid)
         #print("acceleration time:", time.ctime(create_time))
         #print("CmdLine Aguments:", cmdline)
+
+
+
+        ## Get all DLLS ##
+
+        memory_maps = roblox_prozess.memory_maps()
+
+        dll_files = [m.path for m in memory_maps if m.path.endswith('.dll')]
+
+        #for dll_file in dll_files:
+            #print(dll_file)
 
         cmdline_string = cmdline[5]
 
