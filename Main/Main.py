@@ -2,6 +2,7 @@ import os
 import webbrowser
 import time
 import json
+import psutil
 from pathlib import Path
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
@@ -161,7 +162,11 @@ def update_all_cookies():
 # Main program
 browsers = []
 
+robloxProccesid = None
+robloxProcces = None
+
 while True:
+
     clear()  # Clear the terminal window
 
     print("Version: 0.1")
@@ -181,6 +186,8 @@ while True:
     print("6. Delete all Cookies")
     print("7. Update All Cookies")
     print("8. Quit Program")
+    ##print("I. Get Roblox Informations")
+    print("X. Kill Roblox")
 
     choice = input("Select an option (1-8): ")
 
@@ -242,6 +249,60 @@ while True:
         print("Goodbye!")
         time.sleep(1)
         break
+    elif choice == 'X':
+
+        prozesse = [p for p in psutil.process_iter(['name']) if p.info['name'] == "RobloxPlayerBeta.exe"]
+
+        if len(prozesse) > 0:
+            robloxProccesid = prozesse[0].pid
+            robloxProcces = prozesse[0]
+
+            clear()  # Clear the terminal window
+            if robloxProcces and robloxProccesid:
+                try:
+                    robloxProcces.terminate()
+                    print("Roblox-Prozess Terminated.")
+                    robloxProcces = None
+                    robloxProccesid = None
+                except psutil.NoSuchProcess:
+                    print("The Roblox Prozess got terminated!")
+                    robloxProcces = None
+                    robloxProccesid = None
+                    time.sleep(2)
+            else:
+                print("No Roblox-Prozess Found!")
+                time.sleep(2)
+    elif choice == 'I':
+        clear()
+        prozesse = [p for p in psutil.process_iter(['name']) if p.info['name'] == "RobloxPlayerBeta.exe"]
+
+        if len(prozesse) > 0:
+            roblox_prozess = prozesse[0]
+            pid = roblox_prozess.pid
+
+            print("Roblox-Prozess Found! PID:", pid)
+
+            prozess_info = roblox_prozess.as_dict(attrs=['status', 'cpu_percent', 'memory_info', 'ppid', 'create_time', 'cmdline'])
+
+            status = prozess_info['status']
+            cpu_percent = prozess_info['cpu_percent']
+            memory_info = prozess_info['memory_info']
+            ppid = prozess_info['ppid']
+            create_time = prozess_info['create_time']
+            cmdline = prozess_info['cmdline']
+
+            print("Status:", status)
+            print("CPU-utilization:", cpu_percent, "%")
+            print("StorageInfo:", memory_info)
+            print("parentprozess PID:", ppid)
+            print("acceleration time:", time.ctime(create_time))
+            print("CmdLine Aguments:", cmdline)
+
+            ## psutil.wait_procs(prozesse, timeout=None)
+        else:
+            print("Roblox-Prozess not Found!.")
+
+        input("Press Enter to continue...")        
     else:
         clear()  # Clear the terminal window
         print("Invalid selection. Please try again. (3)")
