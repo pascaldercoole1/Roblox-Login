@@ -6,6 +6,10 @@ from pathlib import Path
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.by import By
+
 
 # Function to clear the terminal window
 def clear():
@@ -65,6 +69,43 @@ def start_cookie(cookie_value, cookie_name, browser=None):
 
     return browser
 
+def save_Browser_Cookie(browser=None):
+    # Path to the Chrome Webdriver
+    webdriver_path = '/path/to/chromedriver'
+
+    # Open the browser if not already opened
+    if browser is None:
+        options = Options()
+        options.add_argument("--start-maximized")  # Maximize the browser window
+        browser = webdriver.Chrome(options=options)
+
+    # Go to the Roblox website
+    browser.get('https://www.roblox.com')
+
+    # Wait until the website redirects to "https://www.roblox.com/Home"
+    WebDriverWait(browser, 60).until(EC.url_to_be("https://www.roblox.com/home"))
+
+    # Get the cookie value
+    cookie_value = browser.get_cookie('.ROBLOSECURITY')['value']
+
+    # Element finden
+    element = browser.find_element(By.XPATH, '//*[@id="right-navigation-header"]/div[2]/ul/div/a/span[2]')
+
+
+    print("Name:", element.text)
+
+    print(f"Cookie Name: {cookie_value}")
+
+    loaded_cookies = load_cookies()
+
+    text_without_at = element.text.replace("@", "")
+    
+    loaded_cookies.append({'name': text_without_at, 'value': cookie_value})
+    save_cookies(loaded_cookies)
+
+    return browser
+
+
 def save_cookies(cookies):
     # Save the cookies to the file
     with open(COOKIE_FILE_PATH, 'w') as file:
@@ -123,7 +164,7 @@ browsers = []
 while True:
     clear()  # Clear the terminal window
 
-    print("Version: 0.1 (Updater Fixed!)")
+    print("Version: 0.2")
 
     print("Warning:")
     print("- Never Click Logout or your Cookie will be unusable")
@@ -133,12 +174,13 @@ while True:
 
     print("Cookie Management:")
     print("1. Start a Cookie")
-    print("2. Save a Cookie")
-    print("3. Show All Cookies")
-    print("4. Delete Cookie by Name")
-    print("5. Delete all Cookies")
-    print("6. Update All Cookies")
-    print("7. Quit Program")
+    print("2. Login")
+    print("3. Save a Cookie")
+    print("4. Show All Cookies")
+    print("5. Delete Cookie by Name")
+    print("6. Delete all Cookies")
+    print("7. Update All Cookies")
+    print("8. Quit Program")
 
     choice = input("Select an option (1-7): ")
 
@@ -162,12 +204,15 @@ while True:
                 print("Invalid selection. Please try again.")
     elif choice == '2':
         clear()  # Clear the terminal window
+        save_Browser_Cookie()
+    elif choice == '3':
+        clear()  # Clear the terminal window
         cookie_name = input("Enter the name of the cookie: ")
         cookie_value = input("Enter the cookie value: ")
         loaded_cookies = load_cookies()
         loaded_cookies.append({'name': cookie_name, 'value': cookie_value})
         save_cookies(loaded_cookies)
-    elif choice == '3':
+    elif choice == '4':
         clear()  # Clear the terminal window
         loaded_cookies = load_cookies()
         if len(loaded_cookies) == 0:
@@ -177,20 +222,20 @@ while True:
             for i, cookie in enumerate(loaded_cookies):
                 print(f"{i + 1}. Cookie Name: {cookie['name']}")
             input("Press Enter to continue...")
-    elif choice == '4':
+    elif choice == '5':
         clear()  # Clear the terminal window
         cookie_name = input("Enter the name of the cookie to delete: ")
         delete_cookie_by_name(cookie_name)
         input("Press Enter to continue...")
-    elif choice == '5':
+    elif choice == '6':
         clear()  # Clear the terminal window
         delete_cookies()
         input("Press Enter to continue...")
-    elif choice == '6':
+    elif choice == '7':
         clear()  # Clear the terminal window
         browsers = update_all_cookies()
         input("Press Enter to continue...")
-    elif choice == '7':
+    elif choice == '8':
         clear()  # Clear the terminal window
         for browser in browsers:
             browser.quit()
