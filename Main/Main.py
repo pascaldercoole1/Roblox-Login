@@ -169,7 +169,7 @@ while True:
 
     clear()  # Clear the terminal window
 
-    print("Version: 0.2")
+    print("Version: 0.1")
 
     print("Warning:")
     print("- Never Click Logout or your Cookie will be unusable")
@@ -302,7 +302,14 @@ while True:
         else:
             print("Roblox-Prozess not Found!.")
 
-        input("Press Enter to continue...")        
+        input("Press Enter to continue...")
+    elif choice == 'SRM':
+        clear()        
+        print("Loading...")
+        lokaler_pfad = os.path.expanduser("~/Roblox-Login")
+        datei_name = os.path.join(lokaler_pfad, "Get-Roblox-PID.py")
+        os.startfile(datei_name)
+        time.sleep(1)
     else:
         clear()  # Clear the terminal window
         print("Invalid selection. Please try again. (3)")
