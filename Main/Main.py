@@ -305,11 +305,19 @@ while True:
         datei_name = os.path.join(lokaler_pfad, "Get-Roblox-PID.py")
         os.startfile(datei_name)
         time.sleep(1)
+
+    elif choice == 'SRMV2':
+        clear()        
+        print("Loading...")
+        lokaler_pfad = os.path.expanduser("~/Roblox-Login")
+        datei_name = os.path.join(lokaler_pfad, "Get-Roblox-PIDV2.py")
+        os.startfile(datei_name)
+        time.sleep(1)
     else:
         clear()  # Clear the terminal window
         print("Invalid selection. Please try again. (3)")
         time.sleep(1)
-        clear()  # Clear the terminal window
+        clear()  # ClTear the terminal window
         print("Invalid selection. Please try again. (2)")
         time.sleep(1)
         clear()  # Clear the terminal window
