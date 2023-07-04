@@ -30,8 +30,14 @@ download_repository_files(repository_url, local_path)
 
 print("All Files got downloaded.")
 
+time.sleep(0.5)
+
 print("Staring latest Version...")
 
-os.startfile("Main.py")
+time.sleep(0.5)
+lokaler_pfad = os.path.expanduser("~/Roblox-Login")
+datei_name = os.path.join(lokaler_pfad, "Main.py")
 
-time.sleep(3)
+os.startfile(datei_name)
+
+time.sleep(1)
