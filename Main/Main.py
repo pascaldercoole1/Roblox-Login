@@ -123,6 +123,8 @@ browsers = []
 while True:
     clear()  # Clear the terminal window
 
+    print("Version: 0.1")
+
     print("Warning:")
     print("- Never Click Logout or your Cookie will be unusable")
     print("- Dont Close the Python App while having a Browser open (it will Crash)")
