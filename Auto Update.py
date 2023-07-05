@@ -24,7 +24,23 @@ def download_repository_files(repository_url, local_path):
 repository_url = "https://api.github.com/repos/pascaldercoole1/Roblox-Login/contents/Main"
 local_path = os.path.expanduser("~/Roblox-Login")
 
-print("Lade die Dateien herunter...")
+if os.path.exists(local_path):
+
+    dateien = os.listdir(local_path)
+
+    for datei in dateien:
+        datei_pfad = os.path.join(local_path, datei)
+        os.remove(datei_pfad)
+
+    os.rmdir(local_path)
+    print("Clearing Old Data...")
+else:
+    print("Not Found! New User ;)")
+
+
+time.sleep(1)
+
+print("Downloading Files...")
 os.makedirs(local_path, exist_ok=True)
 download_repository_files(repository_url, local_path)
 
