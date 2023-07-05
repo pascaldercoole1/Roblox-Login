@@ -37,20 +37,15 @@ if os.path.exists(local_path):
 else:
     print("Not Found! New User ;)")
 
-
-time.sleep(1)
-
 print("Downloading Files...")
 os.makedirs(local_path, exist_ok=True)
 download_repository_files(repository_url, local_path)
 
 print("All Files got downloaded.")
 
-time.sleep(0.5)
 
 print("Staring latest Version...")
 
-time.sleep(0.5)
 lokaler_pfad = os.path.expanduser("~/Roblox-Login")
 datei_name = os.path.join(lokaler_pfad, "Main.py")
 
