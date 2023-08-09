@@ -164,11 +164,18 @@ while True:
 
     clear()  # Clear the terminal window
 
-    print("Version: 0.3")
+    print("Version: 0.4")
 
     print("Warning:")
     print("- Never Click Logout or your Cookie will be unusable")
     print("- Dont Close the Python App while having a Browser open (it will Crash)")
+
+    print("----------------------------------------------------------------------------------------------")
+
+    loaded_cookies = load_cookies()
+    total_cookies = len(loaded_cookies)
+
+    print(f"Cookies Loaded: {total_cookies}")
 
     print("----------------------------------------------------------------------------------------------")
 
