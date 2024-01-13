@@ -50,6 +50,8 @@ def start_cookie(cookie_value, cookie_name, browser=None):
 
     print(f"Cookie Name: {cookie_name}")
 
+    browser.get('https://www.roblox.com/Home')
+    
     return browser
 
 def save_Browser_Cookie(browser=None):
