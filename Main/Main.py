@@ -1,4 +1,5 @@
 import os
+import requests
 import webbrowser
 import time
 import json
@@ -23,6 +24,24 @@ print("Made by bossisback (https://github.com/pascaldercoole1/Roblox-Login)")
 time.sleep(2)
 
 clear()
+
+with open('Version.txt', 'r') as file:
+    FZ = file.readline()
+
+if requests.get("https://raw.githubusercontent.com/pascaldercoole1/Roblox-Login/main/Main/Version.txt").text == FZ:
+    ## Updated!
+    print("Updated!")
+    clear()
+else:
+    print("There is a new Version do you want to Download it?")
+    newversionyorno = input("Yes (Y) / No (N): ")
+    if newversionyorno == "Y" or newversionyorno == "y":
+        local_path = os.path.expanduser("~\\Roblox-Login")
+        print("Local path:", local_path)
+
+        new_backup = os.path.join(local_path, "AutoUpdateBackup.py")
+        os.startfile(new_backup)
+        os.system("pause")
 
 
 COOKIE_FILE_PATH = os.path.join(str(Path.home()), 'cookies.json')
@@ -52,7 +71,6 @@ def start_cookie(cookie_value, cookie_name, browser=None):
     return browser
 
 def save_Browser_Cookie(browser=None):
-    webdriver_path = '/path/to/chromedriver'
 
     if browser is None:
         options = Options()
