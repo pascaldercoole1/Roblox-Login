@@ -16,18 +16,6 @@ from selenium.webdriver.common.by import By
 def clear():
     os.system('cls' if os.name == 'nt' else 'clear')
 
-
-print("Starting")
-time.sleep(0.3)
-clear()
-print("Starting.")
-time.sleep(0.3)
-clear()
-print("Starting..")
-time.sleep(0.3)
-clear()
-print("Starting...")
-time.sleep(0.3)
 clear()
 
 print("Made by bossisback (https://github.com/pascaldercoole1/Roblox-Login)")
@@ -40,19 +28,14 @@ clear()
 COOKIE_FILE_PATH = os.path.join(str(Path.home()), 'cookies.json')
 
 def start_cookie(cookie_value, cookie_name, browser=None):
-    # Path to the Chrome Webdriver
-    webdriver_path = '/path/to/chromedriver'
 
-    # Open the browser if not already opened
     if browser is None:
         options = Options()
-        options.add_argument("--start-maximized")  # Maximize the browser window
+        options.add_argument("--start-maximized")  
         browser = webdriver.Chrome(options=options)
 
-    # Go to the Roblox website
     browser.get('https://www.roblox.com/Home')
 
-    # Create the cookie
     cookie = {
         'name': '.ROBLOSECURITY',
         'value': cookie_value,
@@ -62,10 +45,8 @@ def start_cookie(cookie_value, cookie_name, browser=None):
 
     browser.add_cookie(cookie)
 
-    # Refresh the page
     browser.refresh()
 
-    # Print the cookie name
     print(f"Cookie Name: {cookie_name}")
 
     return browser
@@ -103,19 +84,17 @@ def save_Browser_Cookie(browser=None):
 
 
 def save_cookies(cookies):
-    # Save the cookies to the file
     with open(COOKIE_FILE_PATH, 'w') as file:
         json.dump(cookies, file)
 
     print("Cookies saved successfully.")
 
 def load_cookies():
-    # Check if the cookie file exists
     if not os.path.exists(COOKIE_FILE_PATH):
         print("No cookies have been saved.")
         return []
 
-    # Load cookies from the file
+
     with open(COOKIE_FILE_PATH, 'r') as file:
         cookies = json.load(file)
 
@@ -154,7 +133,6 @@ def update_all_cookies():
         print("All cookies have been updated.")
         return [browser]
 
-# Main program
 browsers = []
 
 robloxProccesid = None
@@ -321,13 +299,4 @@ while True:
         os.startfile(datei_name)
         time.sleep(1)
     else:
-        clear()  # Clear the terminal window
-        print("Invalid selection. Please try again. (3)")
-        time.sleep(1)
-        clear()  # ClTear the terminal window
-        print("Invalid selection. Please try again. (2)")
-        time.sleep(1)
-        clear()  # Clear the terminal window
-        print("Invalid selection. Please try again. (1)")
-        time.sleep(1)
-        clear()  # Clear the terminal window
+        clear()  
